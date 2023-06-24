@@ -47,5 +47,22 @@ export const empLogin = async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Server error" });
   }
-  
+};
+
+export const logout = (req, res) => {
+  // Set the cookie name to be cleared upon logout
+  const cookieName = "your_cookie_name";
+
+  // Clear the cookie by setting its expiration date to a past date
+  res.cookie(cookieName, "", {
+    expires: new Date(0),
+    sameSite: process.env.NODE_SERVER == "Development" ? "Lax" : "none",
+    secure: process.env.NODE_SERVER == "Development" ? false : true,
+  });
+
+  // Return a JSON response indicating successful logout
+  res.json({
+    success: true,
+    message: "Logout successful",
+  });
 };
