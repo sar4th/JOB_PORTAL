@@ -51,7 +51,7 @@ export const empLogin = async (req, res) => {
 
 export const logout = (req, res) => {
   // Set the cookie name to be cleared upon logout
-  const cookieName = "your_cookie_name";
+  const cookieName = "token";
 
   // Clear the cookie by setting its expiration date to a past date
   res.cookie(cookieName, "", {
@@ -66,3 +66,13 @@ export const logout = (req, res) => {
     message: "Logout successful",
   });
 };
+
+
+
+//job controller
+
+
+
+//new job  
+
+

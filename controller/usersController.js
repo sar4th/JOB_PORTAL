@@ -10,6 +10,7 @@ export const Home = async (req, res) => {
 
 // Define a function to create a new user
 export const register = async (req, res) => {
+
   const { email, name, password } = req.body;
   let user = await User.findOne({ email });
 
@@ -28,6 +29,8 @@ export const register = async (req, res) => {
     setCookie(newUser, res, "registered successfully");
   }
 };
+
+
 
 //Login function
 export const login = async (req, res) => {
