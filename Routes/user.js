@@ -18,5 +18,5 @@ router.post("/users/login", login);
 router.get("/users/logout", logout);
 
 router.get("/users/me", IsAuthenticated, getUser);
-router.get("/users/get-all-jobs", getAlljobs);
+router.get("/users/get-all-jobs",IsAuthenticated,getAlljobs);
 export default router;

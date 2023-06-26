@@ -113,10 +113,18 @@ export const deleteJob = async (req, res) => {
 };
 
 export const getAlljobs = async (req, res) => {
-  const jobs = await jobModel.find();
-  res.json({
-    success: true,
-    message: "job fetch successfull",
-    jobs,
-  });
+  try {
+    const jobs = await jobModel.find();
+    res.json({
+      success: true,
+      message: "Job fetch successful",
+      jobs,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching jobs",
+      error: error.message,
+    });
+  }
 };
