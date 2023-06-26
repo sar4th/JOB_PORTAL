@@ -1,5 +1,6 @@
 import express from "express";
 import { jobModel } from "../models/jobModel.js";
+import { logout } from "./empController.js";
 
 export const newJOb = async (req, res) => {
   const {
@@ -12,7 +13,14 @@ export const newJOb = async (req, res) => {
     postedAt,
   } = req.body;
 
-  if (!title || !company || !location || !description || !requirements || !salary) {
+  if (
+    !title ||
+    !company ||
+    !location ||
+    !description ||
+    !requirements ||
+    !salary
+  ) {
     res.json({
       success: false,
       message: "All Fields are required",
@@ -32,18 +40,83 @@ export const newJOb = async (req, res) => {
       res.json({
         success: true,
         message: "Job created successfully",
-        job: newJob
+        job: newJob,
       });
     } catch (error) {
       console.error(error);
       res.json({
         success: false,
-        message: "Failed to create new job post"
+        message: "Failed to create new job post",
       });
     }
   }
 };
 
-export const updateJob= (req,res) =>{
-  
-}
+export const updateJob = async (req, res) => {
+  const jobId = req.params.id; // Assuming you pass the job ID in the URL parameter
+
+  try {
+    if (!jobId) {
+      return res.json({
+        success: false,
+        message: "The Job Not Found",
+      });
+    }
+
+    const updatedJob = await jobModel.findByIdAndUpdate(jobId, req.body, {
+      new: true,
+    });
+
+    if (!updatedJob) {
+      return res.json({
+        success: false,
+        message: "Job not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Job Updated Successfully",
+      job: updatedJob,
+    });
+  } catch (error) {
+    console.error(error);
+    res.json({
+      success: false,
+      message: "Failed to update job",
+    });
+  }
+};
+
+export const deleteJob = async (req, res) => {
+  const id = req.params.id;
+  try {
+    if (!id) {
+      res.json({
+        success: false,
+        message: "the requested job is not found ",
+      });
+    } else {
+      const job = await jobModel.findOneAndDelete({ _id: id });
+
+      res.json({
+        success: true,
+        message: "The job post deleted successfully",
+      });
+    }
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error,
+    });
+  }
+};
+
+export const getAlljobs = async (req, res) => {
+  const jobs = await jobModel.find();
+  res.json({
+    success: true,
+    message: "job fetch successfull",
+    jobs,
+  });
+};
