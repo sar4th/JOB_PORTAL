@@ -15,6 +15,9 @@ const handleSubmit =async(e) =>{
       name,email,password
     }).then((res)=>{
       console.log(res);
+      setEmail("")
+      setName("")
+      setPassword("")
     })
   } catch (error) {
     console.log("error is "+error);

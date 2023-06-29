@@ -2,21 +2,21 @@
 import React, { useState } from 'react'
 import axios from "axios"
 import { Server } from '../App'
-const UserLogin = () => {
+const EmpLogin = () => {
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
 
 const handleSubmit =async(e) =>{
   e.preventDefault()
   try {
-   const user=await axios.post(`${Server}/users/login`,{
+   const emp=await axios.post(`${Server}/emp/login`,{
     email,
     password
-    }).then((res)=>{
-      console.log(res);
+    })
+      console.log(emp);
       setEmail("")
       setPassword("")
-    })
+
   } catch (error) {
     console.log("error is "+error);
   }
@@ -50,4 +50,4 @@ const handleSubmit =async(e) =>{
   )
 }
 
-export default UserLogin
+export default EmpLogin
