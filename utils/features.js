@@ -10,6 +10,6 @@ export const setCookie= async (newEmp,res,message)=>{
     });
     res.json({
       success: true,
-      message
+      message,  
     });
 }
