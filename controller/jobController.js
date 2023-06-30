@@ -128,3 +128,23 @@ export const getAlljobs = async (req, res) => {
     });
   }
 };
+export const jobSearch =async(req,res) =>{
+  try {
+    const { keyword, location } = req.query; // Assuming you're passing keyword and location as query parameters
+    
+    // Query the database based on the search criteria
+    const jobs = await jobModel.find({
+      $or: [
+        { title: { $regex: keyword, $options: 'i' } },
+        { location: { $regex: location, $options: 'i' } }
+      ]
+    });
+    return jobs.length > 0
+    ? res.json(jobs)
+    : res.status(404).json({ message: 'No jobs found' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+}
+

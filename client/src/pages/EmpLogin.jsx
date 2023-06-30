@@ -2,6 +2,9 @@
 import React, { useState } from 'react'
 import axios from "axios"
 import { Server } from '../App'
+import "../styles/reg.css"
+
+
 const EmpLogin = () => {
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
@@ -12,6 +15,8 @@ const handleSubmit =async(e) =>{
    const emp=await axios.post(`${Server}/emp/login`,{
     email,
     password
+    },{
+      withCredentials:true
     })
       console.log(emp);
       setEmail("")

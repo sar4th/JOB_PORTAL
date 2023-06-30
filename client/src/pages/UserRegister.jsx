@@ -2,6 +2,8 @@
 import React, { useState } from 'react'
 import axios from "axios"
 import { Server } from '../App'
+import "../styles/reg.css"
+
 const UserRegister = () => {
 
   const [name,setName] =useState("")
@@ -13,6 +15,8 @@ const handleSubmit =async(e) =>{
   try {
    const user=await axios.post(`${Server}/users/register`,{
       name,email,password
+    },{
+      withCredentials:true
     }).then((res)=>{
       console.log(res);
       setEmail("")

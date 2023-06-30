@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Server } from '../App';
-
+import "../styles/reg.css"
 const EmpRegister = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -16,6 +16,9 @@ const EmpRegister = () => {
         email,
         password,
         organization,
+      },
+      {
+        withCredentials:true
       });
       console.log(emp);
       setEmail('');
